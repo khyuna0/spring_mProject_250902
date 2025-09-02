@@ -1,0 +1,23 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<header class="topbar">
+  <a class="brand" href="index">Cafe Kiosk</a>
+  <nav aria-label="상단 메뉴">
+    <ul class="menu">
+    
+	<c:choose>
+		<c:when test="${empty sessionScope.sessionId }">
+			<li><a href="<c:url value='/login'/>">로그인</a></li>
+     		<li><a href="<c:url value='/joinForm'/>">회원가입</a></li>
+		</c:when>
+		<c:otherwise>
+			<li><a href="<c:url value='/logout'/>">로그아웃</a></li>
+			<li><a href="<c:url value='/myPage'/>">마이페이지</a></li>
+		    <li><a href="<c:url value='/#'/>">주문 목록</a></li>
+		    <li><a href="<c:url value='/#'/>">예약확인</a></li>
+		</c:otherwise>
+	</c:choose>	    
+     	 <li><a href="<c:url value='/#'/>">후기 게시판</a></li>
+    </ul>
+  </nav>
+</header>

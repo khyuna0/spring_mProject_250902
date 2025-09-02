@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.khyuna0.mProject.dao.MemberDao">
+	
+<insert id="joinDao">
+	INSERT INTO members(memberid, memberpw, memberage, membername, memberemail) VALUES (#{param1}, #{param2}, #{param3}, #{param4}, #{param5})
+</insert>
+
+<select id="joinIdCheckDao" resultType="int">
+	SELECT COUNT(*) FROM members WHERE memberid = #{param1}
+</select>
+
+<select id="joinEmailCheckDao" resultType="int">
+	SELECT COUNT(*) FROM members WHERE memberemail = #{param1}
+</select>
+
+<select id="loginDao" resultType="int">
+	SELECT COUNT(*) FROM members WHERE memberid = #{param1} AND memberpw = #{param2}
+</select>
+
+<select id="myPageViewDao" resultType="com.khyuna0.mProject.dto.MemberDto">
+	SELECT * FROM members WHERE memberid = #{param1}
+</select>
+
+<update id="myPageModifyDao">
+	UPDATE members SET memberpw  = #{param1}, memberage  = #{param2}, membername  = #{param3} WHERE memberid = #{param4}
+</update>
+
+</mapper>
