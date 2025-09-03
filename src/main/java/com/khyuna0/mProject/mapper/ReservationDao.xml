@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.khyuna0.mProject.dao.ReservationDao">
+	
+	<resultMap type="com.khyuna0.mProject.dto.ReservationDto" id="reservaionWithMember">
+		<id property="rid" column="rid"/> <!-- 테이블의 기본 키 -->
+		<result property="memberid" column="memberid" /> <!-- 나머지 -->
+		<result property="rlocation" column="rlocation" />
+		<result property="r_room" column="r_room" />
+		<result property="rdate" column="rdate" />
+		<result property="rtime" column="rtime" />
+		
+		<association property="memberDto" javaType="com.khyuna0.mProject.dto.MemberDto">
+			<id property="memberid" column="memberid"/> <!-- 테이블의 기본 키 -->
+			<result property="memberpw" column="memberpw" /> <!-- 나머지 -->
+			<result property="memberage" column="memberage" /> 
+			<result property="membername" column="membername" />
+			<result property="memberdate" column="memberdate" />
+			<result property="memberemail" column="memberemail" /> 	
+		</association>
+	</resultMap>
+	
+	<resultMap type="com.khyuna0.mProject.dto.MemberDto" id="memberWithReservation">
+		<id property="memberid" column="memberid"/> <!-- 테이블의 기본 키 -->
+			<result property="memberpw" column="memberpw" /> <!-- 나머지 -->
+			<result property="memberage" column="memberage" /> 
+			<result property="membername" column="membername" />
+			<result property="memberdate" column="memberdate" />
+			<result property="memberemail" column="memberemail" /> 	
+		
+		<collection property="ReservationDto" ofType="com.khyuna0.mProject.dto.ReservationDto">
+			<id property="rid" column="rid"/> <!-- 테이블의 기본 키 -->
+				<result property="memberid" column="res_memberid" /> <!-- 나머지 -->
+				<result property="rlocation" column="rlocation" />
+				<result property="r_room" column="r_room" />
+				<result property="rdate" column="rdate" />
+				<result property="rtime" column="rtime" />
+		</collection>
+	</resultMap>
+	
+	<insert id="reservationDao" >
+		INSERT INTO reservation VALUES (RESERVATION_SEQ, #{param1}, #{param2}, #{param3}, #{param4}, #{param5},)
+	</insert>
+
+	<select id="findAllReservationsDao" resultType="com.khyuna0.mProject.dto.ReservationDto">
+		SELECT * FROM reservation
+	</select>
+	
+	<select id="myReservationDao" resultMap="memberWithReservation" >
+		SELECT 
+	    	m.memberid, m.membername, m.memberage, m.memberemail, r.memberid res_memberid, r.rid, r.rlocation, r.r_room, r.rdate, r.rtime
+				FROM members m
+					INNER JOIN reservation r
+						ON m.memberid = r.memberid 
+							WHERE m.memberid = #{param1}
+								ORDER BY r.rid DESC
+	</select>	
+	
+</mapper>

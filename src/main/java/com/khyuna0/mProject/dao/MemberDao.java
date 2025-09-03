@@ -22,8 +22,6 @@ public interface MemberDao {
 	// 마이페이지 내 정보 수정
 	public void myPageModifyDao(String memberpw, int memberage, String membername, String memberid);
 	
-	// 주문 목록 or 예약 확인
-	
 	// 회원 탈퇴?
 	
 	

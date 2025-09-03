@@ -11,6 +11,12 @@
   <!-- 헤더 -->
   <jsp:include page="/WEB-INF/views/include/header.jsp" />
 
+	<c:if test="${empty sessionScope.sessionId}">
+	  <script>
+	    alert("로그인 상태에서만 접근 가능합니다.");
+	    location.href = "<c:url value='/login'/>";
+	  </script>
+	</c:if>
 
   <main class="container">
     <section class="form-card">

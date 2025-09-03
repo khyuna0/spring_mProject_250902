@@ -19,7 +19,7 @@ import com.khyuna0.mProject.dto.BoardDto;
 public class BoardController {
 	
 	@Autowired
-	SqlSession sqlSession;
+	private SqlSession sqlSession;
 	
 	BoardDto boardDto = new BoardDto();
 	

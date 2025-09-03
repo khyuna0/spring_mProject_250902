@@ -21,4 +21,5 @@ public class MemberDto {
 	private String memberemail;
 	
 	private List<BoardDto> boardlist;
+	private List<ReservationDto> reservationlist;
 }
