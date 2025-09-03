@@ -13,11 +13,11 @@
 		<c:otherwise>
 			<li><a href="<c:url value='/logout'/>">로그아웃</a></li>
 			<li><a href="<c:url value='/myPage'/>">마이페이지</a></li>
-		    <li><a href="<c:url value='/#'/>">주문 목록</a></li>
+		    <li><a href="<c:url value='/#'/>">예약하기</a></li>
 		    <li><a href="<c:url value='/#'/>">예약확인</a></li>
 		</c:otherwise>
 	</c:choose>	    
-     	 <li><a href="<c:url value='/#'/>">후기 게시판</a></li>
+     	 <li><a href="<c:url value='/board/bList'/>">후기 게시판</a></li>
     </ul>
   </nav>
 </header>

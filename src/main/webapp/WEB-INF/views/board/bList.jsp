@@ -49,7 +49,12 @@
 
   <!-- 페이징 -->
   <div class="pagination">
-    <c:if test="${startPage > 0}">
+  
+  	<c:if test="${page > 1}">
+      <a href="<c:url value='/board/bList?page=1'/>">처음</a>
+    </c:if>
+  	
+    <c:if test="${startPage > 1}">
       <a href="<c:url value='/board/bList?page=${startPage-1}'/>">이전</a>
     </c:if>
 
@@ -61,6 +66,11 @@
     <c:if test="${endPage < totalPage}">
       <a href="<c:url value='/board/bList?page=${endPage+1}'/>">다음</a>
     </c:if>
+    
+    <c:if test="${page < totalPage}">
+      <a href="<c:url value='/board/bList?page=${totalPage}'/>">마지막</a>
+    </c:if>
+    
   </div>
 </div>
 

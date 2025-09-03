@@ -33,9 +33,9 @@
 			    		FROM (
 		        			SELECT * FROM boardtbl ORDER BY bnum DESC
 			   					 ) r
-								    WHERE rownum <= #{param1} 
+								    WHERE rownum <= #{param2} 
 										)
-											WHERE rnum >= #{param2}
+											WHERE rnum >= #{param1}
 	 ]]>                                             
 	</select>
 	
