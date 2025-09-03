@@ -12,7 +12,8 @@
 </head>
 <body>
   <!-- 공통 헤더 -->
-  <jsp:include page="/resources/include/header.jsp" />
+<jsp:include page="/WEB-INF/views/include/header.jsp" />
+
 
   <main class="container">
     <!-- 히어로 -->
@@ -51,6 +52,6 @@
   </main>
 
   <!-- 공통 푸터(pooter) -->
-  <jsp:include page="/resources/include/footer.jsp" />
+<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>

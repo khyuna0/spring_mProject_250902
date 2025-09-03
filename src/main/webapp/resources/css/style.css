@@ -156,3 +156,95 @@ body{
 }
 .login-helper a{ text-decoration: underline }
 
+
+/* ===== Board List Table ===== */
+.board-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  font-size: 0.95rem;
+  background: var(--white);
+}
+
+.board-table th,
+.board-table td {
+  border: 1px solid var(--ink-400) !important; /* 강제 적용 */
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.board-table th {
+  background: var(--brand-100);
+  font-weight: 600;
+  text-align: center;
+}
+
+.board-table td a {
+  color: var(--ink-900);
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.board-table tr:nth-child(even) {
+  background: var(--brand-50);
+}
+
+
+/* 페이징 */
+.pagination {
+  margin: 24px 0;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+.pagination a {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid var(--brand-300);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--ink-900);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.pagination a:hover {
+  background: var(--brand-200);
+  border-color: var(--brand-400);
+}
+.pagination a.active {
+  background: var(--brand-300);
+  border-color: var(--brand-400);
+  font-weight: 700;
+  color: var(--ink-900);
+}
+
+/* ===== Board View (상세보기) ===== */
+.board-view-card {
+  max-width: 900px;       /* 넓게 */
+  margin: 24px auto;
+  padding: 24px;
+  background: var(--white);
+  border: 1px solid var(--brand-300);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+}
+.board-view-card .form-row {
+  margin-bottom: 16px;
+}
+.board-view-card label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+.board-view-card .form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+
+/* Write page specific tweaks */
+.form-actions .btn {
+  min-width: 80px;
+  text-align: center;
+}

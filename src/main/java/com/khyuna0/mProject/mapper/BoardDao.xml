@@ -6,10 +6,62 @@
     
 <mapper namespace="com.khyuna0.mProject.dao.BoardDao">
 
+	<resultMap type="com.khyuna0.mProject.dto.BoardDto" id="boardWithMember">
+		<id property="bnum" column="bnum"/> <!-- 테이블의 기본 키 -->
+		<result property="btitle" column="btitle" /> <!-- 나머지 -->
+		<result property="bcontent" column="bcontent" />
+		<result property="bwriter" column="bwriter" />
+		<result property="bhit" column="bhit" />
+		<result property="bdate" column="bdate" />
+		<result property="rnum" column="rnum" />
+		
+		<association property="memberDto" javaType="com.khyuna0.mProject.dto.MemberDto">
+			<id property="memberid" column="memberid"/> <!-- 테이블의 기본 키 -->
+			<result property="memberpw" column="memberpw" /> <!-- 나머지 -->
+			<result property="memberage" column="memberage" /> 
+			<result property="membername" column="membername" />
+			<result property="memberdate" column="memberdate" />
+			<result property="memberemail" column="memberemail" /> 	
+		</association>
+	</resultMap>
+
 	<select id="boardListDao" resultType="com.khyuna0.mProject.dto.BoardDto">
-		SELECT * FROM boardtbl
+	<![CDATA[
+			SELECT *
+				FROM (
+			    	SELECT rownum AS rnum, r.*
+			    		FROM (
+		        			SELECT * FROM boardtbl ORDER BY bnum DESC
+			   					 ) r
+								    WHERE rownum <= #{param1} 
+										)
+											WHERE rnum >= #{param2}
+	 ]]>                                             
 	</select>
 	
+	<select id="boardCountDao" resultType="int">
+		SELECT COUNT(*) FROM boardtbl
+	</select>
 	
-
+	<select id="boardViewDao" resultType="com.khyuna0.mProject.dto.BoardDto">
+		SELECT * FROM boardtbl WHERE bnum = #{param1}
+	</select>
+	
+	<update id="boardModifyDao">
+		UPDATE boardtbl SET btitle = #{param2}, bcontent = #{param3} WHERE bwriter = #{param1}
+	</update>
+	
+	<insert id="boardWriteDao">
+		INSERT INTO boardtbl (bnum,btitle,bcontent,bwriter) VALUES (BOARD_SEQ.nextval,#{param1},#{param2},#{param3})
+	</insert>
+	
+	
+	<delete id="boardDeleteDao">
+		DELETE FROM boardtbl WHERE bnum = #{param1}
+	</delete>
+	
+	<update id="boardHitDao">
+		UPDATE boardtbl SET bhit = bhit+1 WHERE bnum = #{param1}
+	</update>
+	
 </mapper>

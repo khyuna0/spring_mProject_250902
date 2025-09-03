@@ -10,7 +10,8 @@
 </head>
 <body>
   <!-- 헤더 -->
-  <jsp:include page="/resources/include/header.jsp" />
+  <jsp:include page="/WEB-INF/views/include/header.jsp" />
+
 
   <main class="container">
     <section class="login-card">
@@ -45,6 +46,6 @@
   </main>
 
   <!-- 푸터 -->
-  <jsp:include page="/resources/include/footer.jsp" />
+<jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </body>
 </html>
