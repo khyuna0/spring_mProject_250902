@@ -1,16 +1,31 @@
 --------------------------------------------------------
---  파일이 생성됨 - 화요일-9월-02-2025   
+--  파일이 생성됨 - 수요일-9월-03-2025   
 --------------------------------------------------------
---------------------------------------------------------
---  DDL for Sequence MEMBERSEQ
---------------------------------------------------------
-
-   CREATE SEQUENCE  "SYSTEM"."MEMBERSEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 8 NOCACHE  NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence BOARD_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SYSTEM"."BOARD_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 163 NOCACHE  NOORDER  NOCYCLE ;
+   CREATE SEQUENCE  "SYSTEM"."BOARD_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 169 NOCACHE  NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence RESERVATION_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SYSTEM"."RESERVATION_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Table BOARDTBL
+--------------------------------------------------------
+
+  CREATE TABLE "SYSTEM"."BOARDTBL" 
+   (	"BNUM" NUMBER, 
+	"BTITLE" VARCHAR2(50 BYTE), 
+	"BCONTENT" VARCHAR2(200 BYTE), 
+	"BWRITER" VARCHAR2(20 BYTE), 
+	"BHIT" NUMBER, 
+	"BDATE" DATE DEFAULT sysdate
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
 --------------------------------------------------------
 --  DDL for Table MEMBERS
 --------------------------------------------------------
@@ -27,23 +42,25 @@
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "SYSTEM" ;
 --------------------------------------------------------
---  DDL for Table BOARDTBL
+--  DDL for Table RESERVATION
 --------------------------------------------------------
 
-  CREATE TABLE "SYSTEM"."BOARDTBL" 
-   (	"BNUM" NUMBER, 
-	"BTITLE" VARCHAR2(50 BYTE), 
-	"BCONTENT" VARCHAR2(200 BYTE), 
-	"BWRITER" VARCHAR2(20 BYTE), 
-	"BHIT" NUMBER, 
-	"BDATE" DATE DEFAULT sysdate
+  CREATE TABLE "SYSTEM"."RESERVATION" 
+   (	"RID" NUMBER, 
+	"MEMBERID" VARCHAR2(20 BYTE), 
+	"RLOCATION" VARCHAR2(20 BYTE), 
+	"R_ROOM" VARCHAR2(20 BYTE), 
+	"RDATE" VARCHAR2(20 BYTE) DEFAULT NULL, 
+	"RTIME" VARCHAR2(20 BYTE)
    ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "SYSTEM" ;
-REM INSERTING into SYSTEM.MEMBERS
-SET DEFINE OFF;
-Insert into SYSTEM.MEMBERS (MEMBERID,MEMBERPW,MEMBERAGE,MEMBERDATE,MEMBERNAME,MEMBEREMAIL) values ('tiger','12345',22,to_date('25/09/02','RR/MM/DD'),'홍길동','hong@abc.com');
+
+   COMMENT ON COLUMN "SYSTEM"."RESERVATION"."RID" IS '예약번호';
+   COMMENT ON COLUMN "SYSTEM"."RESERVATION"."MEMBERID" IS '예약자 아이디';
+   COMMENT ON COLUMN "SYSTEM"."RESERVATION"."RLOCATION" IS '예약한 지점';
+   COMMENT ON COLUMN "SYSTEM"."RESERVATION"."R_ROOM" IS '예약한 방';
 REM INSERTING into SYSTEM.BOARDTBL
 SET DEFINE OFF;
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (9,'123','123','tiger',0,to_date('25/09/02','RR/MM/DD'));
@@ -98,7 +115,7 @@ Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (55
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (56,'연습 더미 제목입니다.47','연습 더미 내용입니다.47번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (57,'연습 더미 제목입니다.48','연습 더미 내용입니다.48번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (58,'연습 더미 제목입니다.49','연습 더미 내용입니다.49번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
-Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (59,'연습 더미 제목입니다.50','연습 더미 내용입니다.50번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
+Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (59,'연습 더미 제목입니다.50','연습 더미 내용입니다.50번 글 내용입니다.','tiger',1,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (60,'연습 더미 제목입니다.51','연습 더미 내용입니다.51번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (61,'연습 더미 제목입니다.52','연습 더미 내용입니다.52번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (62,'연습 더미 제목입니다.53','연습 더미 내용입니다.53번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
@@ -107,7 +124,7 @@ Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (64
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (65,'연습 더미 제목입니다.56','연습 더미 내용입니다.56번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (66,'연습 더미 제목입니다.57','연습 더미 내용입니다.57번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (67,'연습 더미 제목입니다.58','연습 더미 내용입니다.58번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
-Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (68,'연습 더미 제목입니다.59','연습 더미 내용입니다.59번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
+Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (68,'연습 더미 제목입니다.59','연습 더미 내용입니다.59번 글 내용입니다.','tiger',1,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (69,'연습 더미 제목입니다.60','연습 더미 내용입니다.60번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (70,'연습 더미 제목입니다.61','연습 더미 내용입니다.61번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (71,'연습 더미 제목입니다.62','연습 더미 내용입니다.62번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
@@ -167,7 +184,7 @@ Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (12
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (125,'연습 더미 제목입니다.116','연습 더미 내용입니다.116번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (126,'연습 더미 제목입니다.117','연습 더미 내용입니다.117번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (127,'연습 더미 제목입니다.118','연습 더미 내용입니다.118번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
-Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (128,'연습 더미 제목입니다.119','연습 더미 내용입니다.119번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
+Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (128,'연습 더미 제목입니다.119','연습 더미 내용입니다.119번 글 내용입니다.','tiger',1,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (129,'연습 더미 제목입니다.120','연습 더미 내용입니다.120번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (130,'연습 더미 제목입니다.121','연습 더미 내용입니다.121번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (131,'연습 더미 제목입니다.122','연습 더미 내용입니다.122번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
@@ -202,3 +219,40 @@ Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (15
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (160,'연습 더미 제목입니다.151','연습 더미 내용입니다.151번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (161,'연습 더미 제목입니다.152','연습 더미 내용입니다.152번 글 내용입니다.','tiger',0,to_date('25/09/02','RR/MM/DD'));
 Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (162,'연습 더미 제목입니다.153','연습 더미 내용입니다.153번 글 내용입니다.','tiger',2,to_date('25/09/02','RR/MM/DD'));
+Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (163,'테스트','1234
+','lion99',null,to_date('25/09/03','RR/MM/DD'));
+Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (164,'테스트','1234
+','lion99',null,to_date('25/09/03','RR/MM/DD'));
+Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (165,'테스트','1234
+','lion99',null,to_date('25/09/03','RR/MM/DD'));
+Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (166,'테스트2','테스트입니다.','lion99',null,to_date('25/09/03','RR/MM/DD'));
+Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (167,'테스트3','테스트입니다.','lion99',null,to_date('25/09/03','RR/MM/DD'));
+Insert into SYSTEM.BOARDTBL (BNUM,BTITLE,BCONTENT,BWRITER,BHIT,BDATE) values (168,'1234','1234','lion99',null,to_date('25/09/03','RR/MM/DD'));
+REM INSERTING into SYSTEM.MEMBERS
+SET DEFINE OFF;
+Insert into SYSTEM.MEMBERS (MEMBERID,MEMBERPW,MEMBERAGE,MEMBERDATE,MEMBERNAME,MEMBEREMAIL) values ('lion88','123456',23,to_date('25/09/02','RR/MM/DD'),'김사자','lion88@abc.com');
+Insert into SYSTEM.MEMBERS (MEMBERID,MEMBERPW,MEMBERAGE,MEMBERDATE,MEMBERNAME,MEMBEREMAIL) values ('lion99','999999',23,to_date('25/09/02','RR/MM/DD'),'사자','lion99@lion.com');
+REM INSERTING into SYSTEM.RESERVATION
+SET DEFINE OFF;
+--------------------------------------------------------
+--  DDL for Procedure ORA$_SYS_REP_AUTH
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE PROCEDURE "SYSTEM"."ORA$_SYS_REP_AUTH" as
+begin
+  EXECUTE IMMEDIATE 'GRANT SELECT ON SYSTEM.repcat$_repschema TO SYS ' ||
+                 'WITH GRANT OPTION';
+  EXECUTE IMMEDIATE 'GRANT SELECT ON SYSTEM.repcat$_repprop TO SYS ' ||
+                 'WITH GRANT OPTION';
+  EXECUTE IMMEDIATE 'GRANT SELECT ON SYSTEM.def$_aqcall TO SYS ' ||
+                 'WITH GRANT OPTION';
+  EXECUTE IMMEDIATE 'GRANT SELECT ON SYSTEM.def$_calldest TO SYS ' ||
+                 'WITH GRANT OPTION';
+  EXECUTE IMMEDIATE 'GRANT SELECT ON SYSTEM.def$_error TO SYS ' ||
+                 'WITH GRANT OPTION';
+  EXECUTE IMMEDIATE 'GRANT SELECT ON SYSTEM.def$_destination TO SYS ' ||
+                 'WITH GRANT OPTION';
+end;
+
+/
