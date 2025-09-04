@@ -10,8 +10,7 @@
 	<script type="text/javascript">
 		var msg ="${msg}";
 		var url ="${url}";
-		//var error = "?error=error";
-	
+		
 		alert(msg);
 		location.href=url;
 	</script>

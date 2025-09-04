@@ -282,4 +282,52 @@ body{
   color:blue;
   text-decoration:underline;
 }
+/* 게시판 카드 형태 */
+.board-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* 게시판 테이블 */
+.board-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* 헤더 스타일 */
+.board-table thead th {
+  background-color: #2c3e50;
+  color: #fff;
+  padding: 12px;
+  border-bottom: 2px solid #34495e;
+}
+
+/* 본문 스타일 */
+.board-table tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* 홀수/짝수 줄 색상 */
+.board-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.board-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* 제목 */
+.form-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  border-left: 5px solid #2c3e50;
+  padding-left: 10px;
+}
 

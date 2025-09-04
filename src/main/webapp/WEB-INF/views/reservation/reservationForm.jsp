@@ -62,7 +62,7 @@
 		  <c:choose>
 		    <c:when test="${not empty availableRooms}">
 		    
-		      <c:forEach var="entry" items="${roomsByLocation}" >
+		      <c:forEach var="entry" items="${availableRooms}" >
 			        <c:forEach var="room" items="${entry.value}">
 			          <option value="${room}">${room}</option>
 			        </c:forEach>

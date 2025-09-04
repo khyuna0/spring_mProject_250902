@@ -22,4 +22,5 @@ public class MemberDto {
 	
 	private List<BoardDto> boardlist;
 	private List<ReservationDto> reservationlist;
+	private ReservationDto reservationDto;
 }

@@ -27,7 +27,8 @@ public class ReservationController {
 	private SqlSession sqlSession;
 	
 	ReservationDto reservationDto = new ReservationDto();
-	List<MemberDto> memberDto = new ArrayList<MemberDto>();
+	List<MemberDto> memberDtos = new ArrayList<MemberDto>();
+	MemberDto memberDto = new MemberDto();
 	
 	@RequestMapping (value = "/reservationForm")
 	public String reservationForm(HttpServletRequest request, Model model) {
@@ -47,6 +48,7 @@ public class ReservationController {
 		
 		// 예약 시간
 		List<String> times = new ArrayList<String>();
+		
 		for (int hour = 10; hour <= 22; hour += 2) {
 			times.add(String.format("%02d:00", hour));
 		}
@@ -77,9 +79,16 @@ public class ReservationController {
 		String rdate = request.getParameter("rdate");
 		String rtime = request.getParameter("rtime");
 		
-		reservationDao.reservationDao(memberid, rlocation, r_room, rdate, rtime);
-		
-		return "reservation/rCheck";
+		memberDto = reservationDao.validateMinorReservationTimeDao(memberid);
+		if(memberDto.getMemberage() < 18 && rtime.equals("22:00") || rtime.equals("24:00") ) {
+			model.addAttribute("msg", "미성년자는 오후 10시 이후 예약이 불가합니다.");
+			model.addAttribute("url", "reservationForm");
+			
+			return "alert/alert";	
+		} else {
+			reservationDao.reservationDao(memberid, rlocation, r_room, rdate, rtime);
+			return "reservation/rCheck";
+		}
 	}
 	
 	@RequestMapping (value = "/rCheck")
@@ -90,7 +99,8 @@ public class ReservationController {
 			
 			String mid = (String) session.getAttribute("sessionId");
 			memberDto = reservationDao.myReservationDao(mid);
-			model.addAttribute("reservation", memberDto);
+			model.addAttribute("memberDto", memberDto);
+			
 			return "reservation/rCheck";
 		} else {
 			model.addAttribute("msg", "로그아웃 상태에서 접근 불가능한 페이지 입니다.");

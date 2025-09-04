@@ -12,6 +12,9 @@ public interface ReservationDao {
 	// 폼에서 예약 불가능한 선택지 보이지 않게 처리하기
 	public List<ReservationDto> findAllReservationsDao();
 	
+	// 예약 시 미성년자 10시 이후 예약 불가 처리
+	public MemberDto validateMinorReservationTimeDao(String memberid);
+	
 	// 예약 확인
-	public List<MemberDto> myReservationDao(String memberid);
+	public MemberDto myReservationDao(String memberid);
 }

@@ -5,25 +5,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.khyuna0.mProject.dao.ReservationDao">
-	
-	<resultMap type="com.khyuna0.mProject.dto.ReservationDto" id="reservaionWithMember">
-		<id property="rid" column="rid"/> <!-- 테이블의 기본 키 -->
-		<result property="memberid" column="memberid" /> <!-- 나머지 -->
-		<result property="rlocation" column="rlocation" />
-		<result property="r_room" column="r_room" />
-		<result property="rdate" column="rdate" />
-		<result property="rtime" column="rtime" />
-		
-		<association property="memberDto" javaType="com.khyuna0.mProject.dto.MemberDto">
-			<id property="memberid" column="memberid"/> <!-- 테이블의 기본 키 -->
-			<result property="memberpw" column="memberpw" /> <!-- 나머지 -->
-			<result property="memberage" column="memberage" /> 
-			<result property="membername" column="membername" />
-			<result property="memberdate" column="memberdate" />
-			<result property="memberemail" column="memberemail" /> 	
-		</association>
-	</resultMap>
-	
+	<!-- 1:n -->
 	<resultMap type="com.khyuna0.mProject.dto.MemberDto" id="memberWithReservation">
 		<id property="memberid" column="memberid"/> <!-- 테이블의 기본 키 -->
 			<result property="memberpw" column="memberpw" /> <!-- 나머지 -->
@@ -32,7 +14,7 @@
 			<result property="memberdate" column="memberdate" />
 			<result property="memberemail" column="memberemail" /> 	
 		
-		<collection property="ReservationDto" ofType="com.khyuna0.mProject.dto.ReservationDto">
+		<collection property="reservationlist" ofType="com.khyuna0.mProject.dto.ReservationDto">
 			<id property="rid" column="rid"/> <!-- 테이블의 기본 키 -->
 				<result property="memberid" column="res_memberid" /> <!-- 나머지 -->
 				<result property="rlocation" column="rlocation" />
@@ -42,8 +24,28 @@
 		</collection>
 	</resultMap>
 	
+	<!-- 1:1 -->
+	
+	<resultMap type="com.khyuna0.mProject.dto.MemberDto" id="memberWithReservation2">
+		<id property="memberid" column="memberid"/> <!-- 테이블의 기본 키 -->
+			<result property="memberpw" column="memberpw" /> <!-- 나머지 -->
+			<result property="memberage" column="memberage" /> 
+			<result property="membername" column="membername" />
+			<result property="memberdate" column="memberdate" />
+			<result property="memberemail" column="memberemail" /> 	
+		
+		<association property="reservationlist" javaType="com.khyuna0.mProject.dto.ReservationDto">
+			<id property="rid" column="rid"/> <!-- 테이블의 기본 키 -->
+				<result property="memberid" column="res_memberid" /> <!-- 나머지 -->
+				<result property="rlocation" column="rlocation" />
+				<result property="r_room" column="r_room" />
+				<result property="rdate" column="rdate" />
+				<result property="rtime" column="rtime" />
+		</association>
+	</resultMap>
+	
 	<insert id="reservationDao" >
-		INSERT INTO reservation VALUES (RESERVATION_SEQ, #{param1}, #{param2}, #{param3}, #{param4}, #{param5},)
+		INSERT INTO reservation VALUES (RESERVATION_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, #{param5})
 	</insert>
 
 	<select id="findAllReservationsDao" resultType="com.khyuna0.mProject.dto.ReservationDto">
@@ -59,5 +61,14 @@
 							WHERE m.memberid = #{param1}
 								ORDER BY r.rid DESC
 	</select>	
+	
+	<select id="validateMinorReservationTimeDao" resultMap="memberWithReservation2">
+			SELECT 
+	    	m.memberage
+				FROM members m
+					LEFT JOIN reservation r
+						ON m.memberid = r.memberid 
+							WHERE m.memberid = #{param1}
+	</select>
 	
 </mapper>
